@@ -334,17 +334,7 @@ function PlayersContent() {
     </Button>
 
   </div>
-)}
-                  {isAdmin && (
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="text-muted-foreground hover:text-red-400"
-                      onClick={() => handleDeletePlayer(player.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  )}
+
                 </div>
               </CardHeader>
               <CardContent>
