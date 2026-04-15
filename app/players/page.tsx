@@ -383,7 +383,7 @@ function PlayersContent() {
               </CardContent>
             </Card>
           )
-        })}
+        ))}
       </div>
 
       {players.length === 0 && (
