@@ -152,9 +152,11 @@ function PlayersContent() {
     })
     setIsDialogOpen(false)
   }
+
   const handleEdit = (player: Player) => {
   alert(player.name + " 수정 기능 준비중!");
   }
+
   const handleDeletePlayer = (id: string) => {
     if (confirm('이 플레이어를 삭제하시겠습니까?')) {
       deletePlayer(id)
@@ -309,6 +311,7 @@ function PlayersContent() {
                       )}
                     </div>
                   </div>
+<<<<<<< HEAD
 {isAdmin && (
   <div className="flex gap-2">
     
@@ -332,6 +335,18 @@ function PlayersContent() {
 
   </div>
 )}
+=======
+                  {isAdmin && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-muted-foreground hover:text-red-400"
+                      onClick={() => handleDeletePlayer(player.id)}
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  )}
+>>>>>>> 5959935d23c90812d30f0e5689e59c2c644de880
                 </div>
               </CardHeader>
               <CardContent>
