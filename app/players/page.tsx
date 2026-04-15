@@ -382,8 +382,7 @@ function PlayersContent() {
                 </div>
               </CardContent>
             </Card>
-          )
-        ))}
+))}
       </div>
 
       {players.length === 0 && (
