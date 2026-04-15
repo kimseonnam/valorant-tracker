@@ -312,28 +312,38 @@ function PlayersContent() {
                     </div>
                   </div>
 
-{isAdmin && (
-  <div className="flex gap-2">
-    <Button
-      variant="ghost"
-      size="icon"
-      className="text-muted-foreground hover:text-blue-400"
-      onClick={() => handleEdit(player)}
-    >
-      ✏️
-    </Button>
+<CardHeader>
+  <div className="flex items-start justify-between">
+    <div>
+      <CardTitle className="text-base">{player.name}</CardTitle>
+      {player.team && (
+        <Badge variant="outline" className="text-xs mt-1">
+          {player.team}
+        </Badge>
+      )}
+    </div>
 
-    <Button
-      variant="ghost"
-      size="icon"
-      className="text-muted-foreground hover:text-red-400"
-      onClick={() => handleDeletePlayer(player.id)}
-    >
-      <Trash2 className="h-4 w-4" />
-    </Button>
-  </div>
-)}
-              </CardHeader>
+    {isAdmin && (
+      <div className="flex gap-2">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-muted-foreground hover:text-blue-400"
+          onClick={() => handleEdit(player)}
+        >
+          ✏️
+        </Button>
+
+        <Button
+          variant="ghost"
+          size="icon"
+          className="text-muted-foreground hover:text-red-400"
+          onClick={() => handleDeletePlayer(player.id)}
+        >
+          <Trash2 className="h-4 w-4" />
+        </Button>
+    )}
+</CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
