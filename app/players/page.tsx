@@ -314,7 +314,6 @@ function PlayersContent() {
 
 {isAdmin && (
   <div className="flex gap-2">
-    
     <Button
       variant="ghost"
       size="icon"
@@ -332,7 +331,6 @@ function PlayersContent() {
     >
       <Trash2 className="h-4 w-4" />
     </Button>
-
   </div>
 )}
               </CardHeader>
