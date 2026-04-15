@@ -311,7 +311,6 @@ function PlayersContent() {
                       )}
                     </div>
                   </div>
-
 <CardHeader>
   <div className="flex items-start justify-between">
     <div>
@@ -323,7 +322,7 @@ function PlayersContent() {
       )}
     </div>
 
-    {isAdmin && (
+    {isAdmin ? (
       <div className="flex gap-2">
         <Button
           variant="ghost"
@@ -342,7 +341,9 @@ function PlayersContent() {
         >
           <Trash2 className="h-4 w-4" />
         </Button>
-    )}
+      </div>
+    ) : null}
+  </div>
 </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4 text-sm">
