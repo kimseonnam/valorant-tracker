@@ -168,7 +168,7 @@ function PlayersContent() {
     }
   }
 const handleSaveEdit = () => {
-  if (!editingPlayer) return
+  if (!editingPlayer) return;
 
   const updatedPlayers = players.map((p) =>
     p.id === editingPlayer.id ? editingPlayer : p
