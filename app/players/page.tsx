@@ -121,6 +121,8 @@ function PlayersContent() {
     favoriteAgent: AGENTS[0].name,
     favoriteMap: MAPS[0].name,
   })
+  const [editingPlayer, setEditingPlayer] = useState<Player | null>(null)
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 
   useEffect(() => {
     setPlayers(getPlayers())
@@ -154,7 +156,9 @@ function PlayersContent() {
   }
 
   const handleEdit = (player: Player) => {
-  alert(player.name + " 수정 기능 준비중!");
+  setEditingPlayer(player)
+  setIsEditDialogOpen(true)
+}
   }
 
   const handleDeletePlayer = (id: string) => {
@@ -163,7 +167,18 @@ function PlayersContent() {
       setPlayers(players.filter((p) => p.id !== id))
     }
   }
+const handleSaveEdit = () => {
+  if (!editingPlayer) return
 
+  const updatedPlayers = players.map((p) =>
+    p.id === editingPlayer.id ? editingPlayer : p
+  )
+
+  setPlayers(updatedPlayers)
+  localStorage.setItem("players", JSON.stringify(updatedPlayers))
+  setIsEditDialogOpen(false)
+  setEditingPlayer(null)
+}
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -369,6 +384,54 @@ function PlayersContent() {
             </Card>
 )})}
       </div>
+
+<Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+  <DialogContent className="bg-card border-border">
+    <DialogHeader>
+      <DialogTitle>플레이어 수정</DialogTitle>
+      <DialogDescription>
+        플레이어 정보를 수정하세요.
+      </DialogDescription>
+    </DialogHeader>
+
+    {editingPlayer && (
+      <FieldGroup>
+        <Field>
+          <FieldLabel>이름</FieldLabel>
+<Input
+  value={editingPlayer?.name || ""}
+  onChange={(e) => {
+    setEditingPlayer({
+      ...(editingPlayer as Player),
+      name: e.target.value,
+    })
+  }}
+/>
+        </Field>
+
+        <Field>
+          <FieldLabel>팀</FieldLabel>
+<Input
+  value={editingPlayer?.team || ""}
+  onChange={(e) => {
+    setEditingPlayer({
+      ...(editingPlayer as Player),
+      team: e.target.value,
+    })
+  }}
+/>
+        </Field>
+
+        <Button
+          onClick={handleSaveEdit}
+          className="w-full bg-white text-black hover:bg-gray-200"
+        >
+          저장하기
+        </Button>
+      </FieldGroup>
+    )}
+  </DialogContent>
+</Dialog>
 
       {players.length === 0 && (
         <Card className="bg-card border-border">
