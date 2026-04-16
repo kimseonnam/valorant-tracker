@@ -159,7 +159,7 @@ function PlayersContent() {
   setEditingPlayer(player)
   setIsEditDialogOpen(true)
 }
-  }
+  
 
   const handleDeletePlayer = (id: string) => {
     if (confirm('이 플레이어를 삭제하시겠습니까?')) {
@@ -170,7 +170,7 @@ function PlayersContent() {
 const handleSaveEdit = () => {
   if (!editingPlayer) return;
 
-const updatedPlayers = players.map((p) =>
+  const updatedPlayers = players.map((p) =>
   p.id === editingPlayer!.id
     ? editingPlayer!
     : p
@@ -397,41 +397,41 @@ const updatedPlayers = players.map((p) =>
     </DialogHeader>
 
     {editingPlayer && (
-      <FieldGroup>
-        <Field>
-          <FieldLabel>이름</FieldLabel>
-<Input
-  value={editingPlayer?.name || ""}
-  onChange={(e) => {
-    setEditingPlayer({
-      ...(editingPlayer as Player),
-      name: e.target.value,
-    })
-  }}
-/>
-        </Field>
+  <FieldGroup>
+    <Field>
+      <FieldLabel>이름</FieldLabel>
+      <Input
+        value={editingPlayer?.name || ""}
+        onChange={(e) => {
+          setEditingPlayer({
+            ...(editingPlayer as Player),
+            name: e.target.value,
+          })
+        }}
+      />
+    </Field>
 
-        <Field>
-          <FieldLabel>팀</FieldLabel>
-<Input
-  value={editingPlayer?.team || ""}
-  onChange={(e) => {
-    setEditingPlayer({
-      ...(editingPlayer as Player),
-      team: e.target.value,
-    })
-  }}
-/>
-        </Field>
+    <Field>
+      <FieldLabel>팀</FieldLabel>
+      <Input
+        value={editingPlayer?.team || ""}
+        onChange={(e) => {
+          setEditingPlayer({
+            ...(editingPlayer as Player),
+            team: e.target.value,
+          })
+        }}
+      />
+    </Field>
 
-        <Button
-          onClick={handleSaveEdit}
-          className="w-full bg-white text-black hover:bg-gray-200"
-        >
-          저장하기
-        </Button>
-      </FieldGroup>
-    )}
+    <Button
+      onClick={handleSaveEdit}
+      className="w-full bg-white text-black hover:bg-gray-200"
+    >
+      저장하기
+    </Button>
+  </FieldGroup>
+)}
   </DialogContent>
 </Dialog>
 
