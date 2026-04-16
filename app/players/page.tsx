@@ -296,21 +296,6 @@ function PlayersContent() {
 
           return (
             <Card key={player.id} className="bg-card border-border">
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-full bg-secondary flex items-center justify-center">
-                      <UserCircle className="h-6 w-6 text-muted-foreground" />
-                    </div>
-                    <div>
-                      <CardTitle className="text-base">{player.name}</CardTitle>
-                      {player.team && (
-                        <Badge variant="outline" className="text-xs mt-1">
-                          {player.team}
-                        </Badge>
-                      )}
-                    </div>
-                  </div>
 <CardHeader>
   <div className="flex items-start justify-between">
     <div>
@@ -341,7 +326,6 @@ function PlayersContent() {
         >
           <Trash2 className="h-4 w-4" />
         </Button>
-      </div>
     ) : null}
   </div>
 </CardHeader>
@@ -382,7 +366,7 @@ function PlayersContent() {
                 </div>
               </CardContent>
             </Card>
-})}
+)})}
       </div>
 
       {players.length === 0 && (
