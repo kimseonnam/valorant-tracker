@@ -144,10 +144,61 @@ function MatchesContent() {
     headshots: 0,
   })
 
+  const [isImageUploadOpen, setIsImageUploadOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [ocrPreview, setOcrPreview] = useState<any>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+
   useEffect(() => {
     setMatches(getMatchesBySeason(selectedSeason))
     setPlayers(getPlayers())
   }, [selectedSeason])
+
+const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const file = e.target.files?.[0] || null;
+  setSelectedImage(file);
+};
+
+const handleAnalyzeImage = async () => {
+  if (!selectedImage) {
+    alert("이미지를 선택해주세요.");
+    return;
+  }
+
+  setIsAnalyzing(true);
+
+  try {
+    const formData = new FormData();
+    formData.append("image", selectedImage);
+
+    const res = await fetch("/api/matches/analyze-image", {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!res.ok) {
+      throw new Error("이미지 분석 실패");
+    }
+
+    const data = await res.json();
+    setOcrPreview(data);
+  } catch (error) {
+    console.error(error);
+    alert("이미지 분석 중 오류가 발생했습니다.");
+  } finally {
+    setIsAnalyzing(false);
+  }
+};
+
+const handleConfirmMatchSave = () => {
+  if (!ocrPreview) {
+    alert("분석된 데이터가 없습니다.");
+    return;
+  }
+
+  console.log("저장할 매치 데이터:", ocrPreview);
+  alert("저장 준비 완료 (다음 단계에서 실제 저장 연결)");
+};
 
   const handleAddPlayerToMatch = () => {
     if (!selectedPlayer.playerId) return
@@ -253,6 +304,15 @@ function MatchesContent() {
                 <LogOut className="h-4 w-4 mr-1" />
                 로그아웃
               </Button>
+
+<Button
+  variant="outline"
+  onClick={() => setIsImageUploadOpen(true)}
+  className="border-border bg-card hover:bg-accent"
+>
+  이미지 등록
+</Button>
+
               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                 <DialogTrigger asChild>
                   <Button className="bg-white text-black hover:bg-gray-200">
@@ -501,6 +561,52 @@ function MatchesContent() {
             </FieldGroup>
           </DialogContent>
         </Dialog>
+  <Dialog open={isImageUploadOpen} onOpenChange={setIsImageUploadOpen}>
+  <DialogContent className="bg-card border-border max-w-2xl">
+    <DialogHeader>
+      <DialogTitle>매치 결과 이미지 등록</DialogTitle>
+      <DialogDescription>
+        내전 결과 이미지를 업로드하면 자동으로 분석합니다.
+      </DialogDescription>
+    </DialogHeader>
+
+    <div className="space-y-4">
+      <Input
+        type="file"
+        accept="image/*"
+        onChange={handleImageSelect}
+      />
+
+      <Button
+        onClick={handleAnalyzeImage}
+        disabled={!selectedImage || isAnalyzing}
+      >
+        {isAnalyzing ? "분석 중..." : "이미지 분석하기"}
+      </Button>
+
+      {ocrPreview && (
+        <div className="space-y-3 border p-3 rounded">
+          <div>맵: {ocrPreview.map}</div>
+
+          <div>
+            점수: {ocrPreview.team1} {ocrPreview.team1Score} : {ocrPreview.team2Score} {ocrPreview.team2}
+          </div>
+
+          <div className="space-y-2">
+            {ocrPreview.players?.map((p: any, i: number) => (
+              <div key={i} className="border p-2 rounded">
+                {p.nickname} → {p.matchedPlayerName || "미매칭"}
+              </div>
+            ))}
+          </div>
+
+          <Button onClick={handleConfirmMatchSave}>
+            저장하기
+          </Button>
+             )}
+            </div>
+         </DialogContent>
+      </Dialog>
             </>
           ) : (
             <Button 
