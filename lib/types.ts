@@ -11,6 +11,7 @@ export interface Player {
   losses: number
   favoriteAgent: string
   favoriteMap: string
+  gameNicknames?: string[]
 }
 
 export interface Match {

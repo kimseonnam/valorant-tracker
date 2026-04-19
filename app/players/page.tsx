@@ -398,18 +398,42 @@ const handleSaveEdit = () => {
 
     {editingPlayer && (
   <FieldGroup>
+
     <Field>
-      <FieldLabel>이름</FieldLabel>
-      <Input
-        value={editingPlayer?.name || ""}
-        onChange={(e) => {
-          setEditingPlayer({
-            ...(editingPlayer as Player),
-            name: e.target.value,
-          })
-        }}
-      />
-    </Field>
+  <FieldLabel>이름</FieldLabel>
+  <Input
+    value={editingPlayer?.name || ""}
+    onChange={(e) => {
+      if (!editingPlayer) return;
+
+      setEditingPlayer({
+        ...(editingPlayer as Player),
+        name: e.target.value,
+      });
+    }}
+  />
+</Field>
+
+  <Field>
+  <FieldLabel>인게임 닉네임</FieldLabel>
+  <Input
+    value={editingPlayer?.gameNicknames?.join(", ") || ""}
+    onChange={(e) => {
+      if (!editingPlayer) return;
+
+      const nicknames = e.target.value
+        .split(",")
+        .map((v) => v.trim())
+        .filter(Boolean);
+
+      setEditingPlayer({
+        ...(editingPlayer as Player),
+        gameNicknames: nicknames,
+      });
+    }}
+    placeholder="김선남#사랑해, 김선남#1234"
+  />
+</Field>
 
     <Field>
       <FieldLabel>팀</FieldLabel>
