@@ -417,22 +417,17 @@ const handleSaveEdit = () => {
   <Field>
   <FieldLabel>인게임 닉네임</FieldLabel>
   <Input
-    value={editingPlayer?.gameNicknames?.join(", ") || ""}
-    onChange={(e) => {
-      if (!editingPlayer) return;
+  value={editingPlayer?.gameNicknames?.[0] || ""}
+  onChange={(e) => {
+    if (!editingPlayer) return;
 
-      const nicknames = e.target.value
-        .split(",")
-        .map((v) => v.trim())
-        .filter(Boolean);
-
-      setEditingPlayer({
-        ...(editingPlayer as Player),
-        gameNicknames: nicknames,
-      });
-    }}
-    placeholder="닉네임#태그, 닉네임#태그 (쉼표로 구분)"
-  />
+    setEditingPlayer({
+      ...(editingPlayer as Player),
+      gameNicknames: [e.target.value],
+    });
+  }}
+  placeholder="닉네임#태그, 닉네임#태그 (쉼표로 구분)"
+/>
 </Field>
 
     <Field>
