@@ -431,7 +431,7 @@ const handleSaveEdit = () => {
         gameNicknames: nicknames,
       });
     }}
-    placeholder="김선남#사랑해, 김선남#1234"
+    placeholder="닉네임#태그, 닉네임#태그 (쉼표로 구분)"
   />
 </Field>
 
