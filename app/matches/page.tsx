@@ -580,7 +580,8 @@ const handleConfirmMatchSave = () => {
               관리자 로그인
             </Button>
           )}
-        
+        </div>
+      </div>
 
       <AdminLoginDialog 
         open={isLoginDialogOpen} 
