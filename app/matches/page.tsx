@@ -570,45 +570,7 @@ const handleConfirmMatchSave = () => {
       </DialogDescription>
     </DialogHeader>
 
-    <div className="space-y-4">
-      <Input
-        type="file"
-        accept="image/*"
-        onChange={handleImageSelect}
-      />
-
-      <Button
-        onClick={handleAnalyzeImage}
-        disabled={!selectedImage || isAnalyzing}
-      >
-        {isAnalyzing ? "분석 중..." : "이미지 분석하기"}
-      </Button>
-
-      {ocrPreview && (
-  <div className="space-y-3 border p-3 rounded">
-    <div>맵: {ocrPreview.map}</div>
-
-    <div>
-      점수: {ocrPreview.team1} {ocrPreview.team1Score} : {ocrPreview.team2Score} {ocrPreview.team2}
-    </div>
-
-    <div className="space-y-2">
-      {ocrPreview.players?.map((p: any, i: number) => (
-        <div key={i} className="border p-2 rounded">
-          {p.nickname} → {p.matchedPlayerName || "미매칭"}
-        </div>
-      ))}
-    </div>
-
-    <Button onClick={handleConfirmMatchSave}>
-      저장하기
-    </Button>
-  </div>
-)}
-          </DialogContent>
-          </Dialog>
-          </>
-          ) : (
+    
             <Button 
               variant="outline" 
               onClick={() => setIsLoginDialogOpen(true)}
